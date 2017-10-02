@@ -1,0 +1,41 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+function findMaxIdx(nums, begin, end){
+    let rooti = begin;
+    for(let i=begin+1; i<=end; i++){
+        if(nums[rooti] < nums[i]){
+            rooti = i;
+        }
+    }
+    return rooti;
+}
+
+function createMaxBinaryTree(nums, begin, end){
+    if(begin > end){
+        return null;
+    }
+    
+    let maxIdx = findMaxIdx(nums, begin, end);
+    let root = new TreeNode(nums[maxIdx]);
+    root.left = createMaxBinaryTree(nums, begin, maxIdx-1);
+    root.right = createMaxBinaryTree(nums, maxIdx+1, end);
+    return root;
+}
+
+var constructMaximumBinaryTree = function(nums) {
+    return createMaxBinaryTree(nums, 0, nums.length-1);
+};
+// var constructMaximumBinaryTree = function(nums) {
+//     var max;
+//     var 
+    
+// };
